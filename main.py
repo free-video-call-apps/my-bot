@@ -4,8 +4,8 @@ import time
 from threading import Thread
 from flask import Flask
 
-# আপনার টোকেন ও আইডি
-TOKEN = '8615930482:AAGmrjUMvQn1iUIne4rljpRI0lG4jaRNUWc'
+# আপনার নতুন টোকেন ও আইডি (আমি আপডেট করে দিয়েছি)
+TOKEN = '8709397620:AAEgvEbgxcbDQ3p0jIYYUyeHRRHNSjBfHrY'
 ADMIN = 8049927326
 
 bot = telebot.TeleBot(TOKEN)
@@ -38,7 +38,7 @@ def countdown(chat_id, msg_id, sub_id):
                 f"🆔 Submission ID: {sub_id}",
                 chat_id, msg_id
             )
-        except Exception as e:
+        except Exception:
             # যদি মেসেজ ডিলিট হয়ে যায় তবে লুপ থামবে
             break
         
@@ -56,7 +56,7 @@ def handle_apk(message):
     if not message.document.file_name.endswith('.apk'):
         return
 
-    # ১. অ্যাডমিন (আপনি) ফাইল পাঠালে (সরাসরি সেন্ড করবেন)
+    # ১. অ্যাডমিন (আপনি) ফাইল পাঠালে সরাসরি ইউজারকে যাবে
     if message.chat.id == ADMIN:
         target_user_id = None
         # বর্তমানে যে ইউজার ওয়েটিং এ আছে তাকে খুঁজে বের করা
@@ -71,7 +71,7 @@ def handle_apk(message):
             except:
                 pass
             
-            # ইউজারকে ফাইল পাঠানো
+            # ইউজারকে মডিফাইড ফাইল পাঠানো
             bot.send_document(target_user_id, message.document.file_id, caption="✅ Your APK has been processed! Here it is.")
             bot.reply_to(message, f"✅ সফল! ইউজার {target_user_id} এর টাইমার রিমুভ করা হয়েছে এবং ফাইল পাঠানো হয়েছে।")
             
@@ -105,5 +105,4 @@ def handle_apk(message):
 
 if __name__ == "__main__":
     Thread(target=run_flask).start()
-    print("বটটি এখন সেকেন্ডে সেকেন্ডে টাইমার গুনতে শুরু করবে...")
-    bot.infinity_polling()
+    bot.infinity_polling()    bot.infinity_polling()
